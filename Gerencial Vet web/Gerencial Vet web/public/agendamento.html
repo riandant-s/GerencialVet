@@ -90,12 +90,12 @@
   <main>
     <h2>Agendar Consulta</h2>
     
-    <!-- Formulário para buscar pelo nome do dono -->
-    <form id="searchOwnerForm">
-      <label for="ownerName">Nome do Dono</label>
-      <input type="text" id="ownerName" placeholder="Ex: João Silva" required>
-      <button type="button" id="searchOwner">Buscar Pets</button>
-    </form>
+    <!-- Formulário para buscar pelo CPF -->
+      <form id="searchOwnerForm">
+        <label for="cpf">CPF do Dono</label>
+        <input type="text" id="cpf" placeholder="000.000.000-00" required>
+        <button type="button" id="searchOwner">Buscar Pets</button>
+      </form>
 
     <!-- Seleção de pets e agendamento -->
     <form id="appointmentForm" style="display: none;">
@@ -120,60 +120,61 @@
   </footer>
   <script>
     const searchOwnerForm = document.getElementById("searchOwnerForm");
-    const appointmentForm = document.getElementById("appointmentForm");
-    const petSelect = document.getElementById("petSelect");
-    const message = document.getElementById("message");
+const appointmentForm = document.getElementById("appointmentForm");
+const petSelect = document.getElementById("petSelect");
+const message = document.getElementById("message");
 
-    document.getElementById("searchOwner").addEventListener("click", async () => {
-      const ownerName = document.getElementById("ownerName").value;
+document.getElementById("searchOwner").addEventListener("click", async () => {
+  const cpf = document.getElementById("cpf").value; // Pegue o CPF
 
-      try {
-        const response = await fetch("/buscarPetsPorDono", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ownerName }),
-        });
-
-        if (!response.ok) throw new Error("Nenhum pet encontrado para este dono.");
-
-        const pets = await response.json();
-        petSelect.innerHTML = `<option value="" disabled selected>Selecione um pet</option>`;
-        pets.forEach(pet => {
-          const option = document.createElement("option");
-          option.value = pet.id;
-          option.textContent = `${pet.petName} - ${pet.species}`;
-          petSelect.appendChild(option);
-        });
-
-        appointmentForm.style.display = "block";
-        message.textContent = "";
-      } catch (error) {
-        message.textContent = error.message || "Erro ao buscar pets.";
-        appointmentForm.style.display = "none";
-      }
+  try {
+    // Envia a busca pelo CPF para o servidor
+    const response = await fetch("/buscarPetsPorDono", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cpf }), // Envia o CPF
     });
 
-    appointmentForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const petId = petSelect.value;
-      const date = document.getElementById("date").value;
-      const time = document.getElementById("time").value;
+    if (!response.ok) throw new Error("Nenhum pet encontrado para este CPF.");
 
-      try {
-        const response = await fetch("/agendar", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ petId, date, time }),
-        });
-
-        if (!response.ok) throw new Error("Erro ao agendar consulta.");
-
-        const data = await response.json();
-        message.textContent = data.message;
-      } catch (error) {
-        message.textContent = error.message || "Erro ao realizar o agendamento.";
-      }
+    const pets = await response.json();
+    petSelect.innerHTML = `<option value="" disabled selected>Selecione um pet</option>`;
+    pets.forEach(pet => {
+      const option = document.createElement("option");
+      option.value = pet.id;
+      option.textContent = `${pet.petName} - ${pet.species}`;
+      petSelect.appendChild(option);
     });
+
+    appointmentForm.style.display = "block";
+    message.textContent = "";
+  } catch (error) {
+    message.textContent = error.message || "Erro ao buscar pets.";
+    appointmentForm.style.display = "none";
+  }
+});
+
+appointmentForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const petId = petSelect.value;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+
+  try {
+    const response = await fetch("/agendar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ petId, date, time }),
+    });
+
+    if (!response.ok) throw new Error("Erro ao agendar consulta.");
+
+    const data = await response.json();
+    message.textContent = data.message;
+  } catch (error) {
+    message.textContent = error.message || "Erro ao realizar o agendamento.";
+  }
+});
   </script>
 </body>
 </html>

@@ -56,6 +56,11 @@ const Pet = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    cpf: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
     contact: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -134,20 +139,24 @@ app.post("/agendar", async (req, res) => {
 
 app.post("/cadastro", async (req, res) => {
   try {
-    const { petName, species, breed, age, ownerName, contact } = req.body;
-    console.log(req.body);
-   
+    const { petName, species, breed, age, ownerName, cpf, contact } = req.body;
+
+    const existingPet = await Pet.findOne({ where: { cpf } });
+    if (existingPet) {
+      return res.status(400).json({ message: "CPF já cadastrado!" });
+    }
+
     const newPet = await Pet.create({
       petName,
       species,
       breed,
       age,
       ownerName,
+      cpf,
       contact,
     });
-    res
-      .status(201)
-      .json({ message: "Pet cadastrado com sucesso!"});
+
+    res.status(201).json({ message: "Pet cadastrado com sucesso!" });
   } catch (error) {
     console.error("Erro ao cadastrar pet:", error);
     res.status(500).json({ message: "Erro ao cadastrar pet." });
@@ -165,19 +174,18 @@ app.get("/pets", async (req, res) => {
   }
 });
 
-//verificação do dono
+//Pesquisa do cpf
 
 app.post("/buscarPetsPorDono", async (req, res) => {
-  const { ownerName } = req.body;
-  console.log("Nome do Dono Recebido:", ownerName); // Verifique o valor recebido
+  const { cpf } = req.body;
 
   try {
     const pets = await Pet.findAll({
-      where: { ownerName },
+      where: { cpf },
     });
 
     if (pets.length > 0) {
-      res.json(pets); // Envia os pets encontrados
+      res.json(pets);
     } else {
       res.status(404).send("Nenhum pet encontrado.");
     }
@@ -186,6 +194,7 @@ app.post("/buscarPetsPorDono", async (req, res) => {
     res.status(500).send("Erro ao buscar pets.");
   }
 });
+
 
 // Inicializando o servidor
 app.listen(port, () => {
