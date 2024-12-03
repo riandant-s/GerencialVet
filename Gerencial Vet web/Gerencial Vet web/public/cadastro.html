@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Pet</title>
+    <link rel="stylesheet" href="css/cadastro.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="form-wrapper">
+        <h1>Cadastro de Pet</h1>
+        <p>Preencha as informações abaixo para cadastrar o pet.</p>
+        <form id="petForm" action="/cadastro" method="POST">
+          <div class="form-group">
+            <label for="petName">Nome do Pet</label>
+            <input type="text" id="petName" name="petName" placeholder="Ex: Rex" required />
+          </div>
+        
+          <div class="form-group">
+            <label for="species">Espécie</label>
+            <select id="species" name="species" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="Cachorro">Cachorro</option>
+              <option value="Gato">Gato</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+        
+          <div class="form-group">
+            <label for="breed">Raça</label>
+            <input type="text" id="breed" name="breed" placeholder="Ex: Labrador" required />
+          </div>
+        
+          <div class="form-group">
+            <label for="age">Idade</label>
+            <input type="number" id="age" name="age" placeholder="Ex: 3" min="0" required />
+          </div>
+        
+          <div class="form-group">
+            <label for="ownerName">Nome do Dono</label>
+            <input type="text" id="ownerName" name="ownerName" placeholder="Ex: João Silva" required />
+          </div>
+        
+          <div class="form-group">
+            <label for="contact">Contato</label>
+            <input type="tel" id="contact" name="contact" placeholder="Ex: (11) 98765-4321" required />
+          </div>
+        
+          <button type="submit">Cadastrar</button>
+        </form>
+        
+      </div>
+    </div>
+  </body>
+</html>
+

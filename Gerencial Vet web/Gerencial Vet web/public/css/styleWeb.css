@@ -1,0 +1,215 @@
+/* Estilo Geral */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h5 {
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Navbar */
+.navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #ffc107;
+}
+
+/* Seção de Boas-Vindas */
+.welcome-section {
+  margin: 2rem auto;
+  padding: 3rem;
+  text-align: center;
+  background: linear-gradient(to bottom, #ffffff, #f4f4f9);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.welcome-section h1 {
+  color: #007bff;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-section h2 {
+  color: #555;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Espaçamento entre as imagens */
+}
+
+.image-container img {
+  width: 300px; /* Largura fixa */
+  aspect-ratio: 4 / 3; /* Proporção uniforme */
+  object-fit: cover; /* Garante preenchimento proporcional */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.image-container img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Seção de Serviços */
+.services-section {
+  padding: 3rem 0;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.services-section h2 {
+  font-size: 2rem;
+  color: #007bff;
+  margin-bottom: 2rem;
+}
+
+.service-icon {
+  font-size: 3rem;
+  color: #007bff;
+  margin-bottom: 1rem;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.service-icon:hover {
+  color: #ffc107;
+  transform: scale(1.2);
+}
+
+.service-title {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.service-description {
+  color: #666;
+}
+
+/* Carrossel */
+.carousel-container {
+  margin: 3rem auto;
+  max-width: 900px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-inner img {
+  object-fit: cover;
+  max-height: 500px;
+}
+
+.carousel-caption h5 {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+/* Rodapé */
+footer {
+  background-color: #007bff;
+  color: #fff;
+  padding: 2rem 0;
+}
+
+footer h5 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+footer p {
+  font-size: 0.9rem;
+}
+
+footer i {
+  margin-right: 0.5rem;
+  color: #ffc107;
+}
+
+/* Seção de Localização */
+.location-section {
+  padding: 4rem 0;
+  background-color: #ffffff;  /* Fundo branco */
+  text-align: center;
+  width: 100%;  /* Fundo ocupa toda a largura da tela */
+  border-radius: 15px;  /* Bordas arredondadas para a seção */
+  overflow: hidden;  /* Impede que o conteúdo ultrapasse as bordas arredondadas */
+}
+
+/* Título da Seção de Localização */
+.location-section h2 {
+  font-size: 2.5rem;
+  color: #007bff;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+/* Estilo do Container do Mapa */
+.map-container {
+  max-width: 900px;  /* Largura máxima do mapa */
+  margin: 0 auto;    /* Centraliza o mapa */
+  padding: 0 1rem;   /* Adiciona um pequeno espaçamento nas laterais */
+}
+
+.map-container iframe {
+  width: 100%;  /* Faz o mapa preencher 100% da largura do container */
+  height: 450px; /* Altura do mapa */
+  border: none;
+  border-radius: 10px; /* Borda arredondada para o mapa */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .map-container iframe {
+    height: 300px;  /* Ajusta a altura para telas pequenas */
+  }
+}
+
+
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .image-container img {
+    max-width: 100%;
+  }
+
+  .service-icon {
+    font-size: 2.5rem;
+  }
+
+  .carousel-inner img {
+    max-height: 300px;
+  }
+}
